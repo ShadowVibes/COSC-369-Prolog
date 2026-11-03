@@ -28,7 +28,7 @@ salgrade(3, 1401, 2000).
 salgrade(4, 2001, 3000).
 salgrade(5, 3001, 9999).
 
-
+%--------------------------------------------------------------------------------------------
 %Exercise 1: Print number and name of the department in boston
 dept_in_city(City) :-
     dept(DeptNo, DName, City),
@@ -38,6 +38,7 @@ dept_in_city(City) :-
 
 %run dept_in_city('BOSTON').
 
+%--------------------------------------------------------------------------------------------
 %Exercise 2: List number and name of all employees in the research department.
 emp_in_dept_list(DeptName) :-
     dept(DeptNo, DeptName, _),
@@ -47,17 +48,17 @@ emp_in_dept_list(DeptName) :-
     emp_in_dept(_).
 %run emp_in_dept_list('RESEARCH').
 
-
+%--------------------------------------------------------------------------------------------
 %Exercise 3: List the names of all employees who are manager or president of the company.
 list_manager_pres() :-
     emp(_, EName, Job, _, _, _),
     (Job = 'MANAGER'; Job = 'PRESIDENT'),
-        write("Name: "), write(EName), write("Job: "), write(Job), nl,
+        write("Name: "), write(EName), write(" Job: "), write(Job), nl,
         fail.
     list_manager_pres().
 %run list_manager_pres().
 
-
+%--------------------------------------------------------------------------------------------
 %Exercise 4: List all employees who earn more than their direct supervisor. One can use a condition like X > Y. The requirement is that X and Y must occur in a body literal to the left of X > Y, so that they are “bound” to a number when this condition is evaluated.
 emp_inflated_salary() :-
     emp(_, EName, _, Mgr, Sal, _),
@@ -68,7 +69,7 @@ emp_inflated_salary() :-
     emp_inflated_salary().
 %run emp_inflated_salary().
 
-
+%--------------------------------------------------------------------------------------------
 %Exercise 5: List all employees who are directly or indirectly managed by “JONES”
 
 %Employees directly managed
@@ -90,8 +91,31 @@ managed_by(Manager) :-
         managed_by(Manager, Employee),
         (write('Name: '), write(Employee), nl)
     ).
+
+%run managed_by('JONES').
+
+
+%-------------------------------------------
+% Run all at once:
+run_all() :-
+    write("\nExercise 1: Print the number and name of the department in boston"), nl,
+    ignore(dept_in_city('BOSTON')),
+
+    write("\nExercise 2: List number and name of all employees in the research department"), nl,
+    ignore(emp_in_dept_list('RESEARCH')),
+
+    write("\nExercise 3: List the names of all employees who are manager or president of the company"), nl,
+    ignore(list_manager_pres()),
+
+    write("\nExercise 4: List all employees who earn more than their direct supervisor"), nl,
+    ignore(emp_inflated_salary()),
+
+    write("\nExercise 5: List all employees who are directly or indirectly managed by JONES"), nl,
+    ignore(managed_by('JONES')).
+%ignore() used so subsequent queries will run even if one fails (either normally or due to fail-driven loop)
+%run run_all().
 /*
-run managed_by('JONES').
+
 
 
 
